@@ -1,9 +1,21 @@
+<%= link_to 'スレッド一覧に戻る', topics_path %>
+<hr>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @topic.title %>
-</p>
+<h1><%= @topic.title %></h1>
 
-<%= link_to 'Edit', edit_topic_path(@topic) %> |
-<%= link_to 'Back', topics_path %>
+<td><%= link_to '変更', edit_topic_path(@topic) %></td>
+<td><%= link_to '削除', @topic, method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
+
+<hr>
+<% @posts.each do |post| %>
+  <p>
+    <%= post.id %>. <%= post.name %> : <%= post.body %>
+    <%= link_to '変更', edit_post_path(post) %>
+    <%= link_to '削除', post, method: :delete, data: { confirm: '本当に削除しますか？' } %>
+  </p>
+<% end %>
+
+<hr>
+<%= render 'posts/form', post: @newpost %>

@@ -1,6 +1,8 @@
-<h1>Editing Topic</h1>
+<%= link_to 'スレッド一覧に戻る', topics_path %>
+<hr>
+
+<h1>スレッド名変更</h1>
 
 <%= render 'form', topic: @topic %>
 
-<%= link_to 'Show', @topic %> |
-<%= link_to 'Back', topics_path %>
+<%= link_to '戻る', @topic %>

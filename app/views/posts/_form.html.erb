@@ -22,15 +22,11 @@
   </div>
 
   <div class="field">
-    <%= form.label :topic_id %>
-    <%= form.text_field :topic_id %>
-  </div>
-
-  <div class="field">
     <%= form.label :post_id %>
     <%= form.text_field :post_id %>
   </div>
 
+  <%= form.hidden_field :topic_id %>
   <div class="actions">
     <%= form.submit %>
   </div>
