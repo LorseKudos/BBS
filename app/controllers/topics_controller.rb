@@ -10,6 +10,7 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
+    redirect_if_deleted
     @newpost = Post.new(:topic_id => params[:id])
     @posts = Post.with_deleted.where(topic_id: params[:id])
   end
@@ -21,6 +22,7 @@ class TopicsController < ApplicationController
 
   # GET /topics/1/edit
   def edit
+    redirect_if_deleted
   end
 
   # POST /topics
@@ -42,6 +44,7 @@ class TopicsController < ApplicationController
   # PATCH/PUT /topics/1
   # PATCH/PUT /topics/1.json
   def update
+    redirect_if_deleted
     respond_to do |format|
       if @topic.update(topic_params)
         format.html { redirect_to @topic, notice: 'Topic was successfully updated.' }
@@ -56,6 +59,7 @@ class TopicsController < ApplicationController
   # DELETE /topics/1
   # DELETE /topics/1.json
   def destroy
+    redirect_if_deleted
     @topic.destroy
     respond_to do |format|
       format.html { redirect_to topics_url, notice: 'Topic was successfully destroyed.' }
@@ -66,11 +70,17 @@ class TopicsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_topic
-      @topic = Topic.find(params[:id])
+      @topic = Topic.with_deleted.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def topic_params
       params.require(:topic).permit(:title)
+    end
+
+    def redirect_if_deleted
+      if @topic.deleted_at
+        redirect_to :root
+      end
     end
 end
