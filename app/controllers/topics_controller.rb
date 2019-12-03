@@ -4,14 +4,14 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.json
   def index
-    @topics = Topic.all
+    @topics = Topic.with_deleted.all.order(id: "DESC")
   end
 
   # GET /topics/1
   # GET /topics/1.json
   def show
     @newpost = Post.new(:topic_id => params[:id])
-    @posts = Post.where(topic_id: params[:id])
+    @posts = Post.with_deleted.where(topic_id: params[:id])
   end
 
   # GET /topics/new
