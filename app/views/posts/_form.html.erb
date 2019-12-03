@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label :name, 'ユーザー名' %>
     <%= form.text_field :name %>
   </div>
 
   <div class="field">
-    <%= form.label :body %>
+    <%= form.label :body, '本文' %>
     <%= form.text_area :body %>
   </div>
 
   <div class="field">
-    <%= form.label :post_id %>
+    <%= form.label :post_id, '返信先(任意)' %>
     <%= form.text_field :post_id %>
   </div>
 
