@@ -11,7 +11,11 @@
     <% @topics.each_with_index do |topic, idx| %>
       <tr>
         <td><%= idx + 1 %></td>
-        <td><%= link_to topic.title, topic %></td>
+        <% if topic.deleted_at %>
+          <td>削除されました</td>
+        <% else %>
+          <td><%= link_to topic.title, topic %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
