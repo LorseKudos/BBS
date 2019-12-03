@@ -21,10 +21,12 @@
     <%= form.text_area :body %>
   </div>
 
+  <% if not edit %>
   <div class="field">
     <%= form.label :post_id, '返信先(任意)' %>
     <%= form.text_field :post_id %>
   </div>
+  <% end %>
 
   <%= form.hidden_field :topic_id %>
   <div class="actions">
