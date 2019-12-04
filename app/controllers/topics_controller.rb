@@ -13,6 +13,7 @@ class TopicsController < ApplicationController
     redirect_if_deleted
     @newpost = Post.new(:topic_id => params[:id])
     @posts = Post.with_deleted.where(topic_id: params[:id])
+    @post_ids = Hash[@posts.pluck(:id).zip [*1..@posts.size]]
   end
 
   # GET /topics/new

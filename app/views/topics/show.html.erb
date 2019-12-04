@@ -16,6 +16,9 @@
       削除されました
     <% else %>
       <%= post.name %> : <%= post.body %>
+      <% if post.post_id %>
+        >><%= @post_ids[post.post_id] %>への返信
+      <% end %>
       <%= link_to '変更', edit_post_path(post) %>
       <%= link_to '削除', post, method: :delete, data: { confirm: '本当に削除しますか？' } %>
     <% end %>

@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-    @topic = Topic.find(params[:post][:topic_id])
+    @topic = Topic.find(post_params[:topic_id])
 
     respond_to do |format|
       if @post.save
@@ -62,7 +62,15 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:name, :body, :topic_id, :post_id)
+      post_params = params.require(:post).permit(:name, :body, :topic_id, :post_id)
+      parent_post_id = post_params[:post_id].to_i
+      if parent_post_id > 0
+        post_params[:post_id] = Post.where(topic_id: post_params[:topic_id])
+                                    .limit(1)
+                                    .offset(parent_post_id - 1)
+                                    .pluck(:id)[0]
+      end
+      return post_params
     end
 
     def redirect_if_deleted
